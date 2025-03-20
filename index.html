@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Innovation in Land Surveying Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Mapbox CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.css' rel='stylesheet' />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <button id="home-button" title="Go to Home"><i class="fas fa-home"></i></button>
+            <h1><i class="fas fa-map-marked-alt"></i> Digital Innovation in Land Surveying Project</h1>
+            <p>Empowering rural communities with AI-driven planning tools.</p>
+            <div class="team-name-container">
+                <div class="team-name-3d">
+                    <span class="team-label">Team</span>
+                    <strong>Tensor Titans</strong>
+                </div>
+            </div>
+            <button id="dark-mode-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </header>
+
+        <div class="main-content">
+            <!-- Map Section -->
+            <section id="map-section">
+                <div class="section-header">
+                    <h2>Interactive Map</h2>
+                    <div class="map-controls-container">
+                        <div class="map-mode-toggle">
+                            <button id="satellite-view" class="map-mode-btn active" title="Satellite View"><i class="fas fa-satellite"></i> Satellite</button>
+                            <button id="street-view" class="map-mode-btn" title="Street View"><i class="fas fa-road"></i> Street</button>
+                            <button id="hybrid-view" class="map-mode-btn" title="Hybrid View"><i class="fas fa-globe"></i> Hybrid</button>
+                            <button id="colorful-view" class="map-mode-btn" title="Colorful View"><i class="fas fa-palette"></i> Colorful</button>
+                        </div>
+                        <div class="city-selector">
+                            <select id="city-select" title="Select City">
+                                <option value="">Select Location</option>
+                                <optgroup label="Kalaburagi District">
+                                    <option value="17.3297,76.8343,13">Kalaburagi City</option>
+                                    <option value="17.1304,76.9400,14">Shahabad</option>
+                                    <option value="17.1776,77.2882,14">Sedam</option>
+                                    <option value="17.1995,76.3603,14">Afzalpur</option>
+                                    <option value="17.5664,76.5684,14">Aland</option>
+                                    <option value="17.4657,77.4242,14">Chincholi</option>
+                                    <option value="17.1236,77.0863,14">Chittapur</option>
+                                    <option value="16.5150,76.7640,14">Jewargi</option>
+                                    <option value="17.2239,77.1131,14">Kalagi</option>
+                                    <option value="17.3370,77.0670,14">Kamalapur</option>
+                                    <option value="17.6477,76.7609,14">Gangapur</option>
+                                </optgroup>
+                                <optgroup label="Yadgir District">
+                                    <option value="16.6963,76.8429,14">Shahapur</option>
+                                    <option value="16.5217,77.1469,14">Surpur (Shorapur)</option>
+                                    <option value="16.7689,77.1331,14">Yadgir</option>
+                                    <option value="16.5833,77.2667,14">Gurmitkal</option>
+                                    <option value="16.7333,76.9667,14">Wadgera</option>
+                                    <option value="16.6333,77.0333,14">Hunsagi</option>
+                                </optgroup>
+                                <optgroup label="Bidar District">
+                                    <option value="17.9104,77.5199,13">Bidar</option>
+                                    <option value="18.0609,77.4653,14">Humnabad</option>
+                                    <option value="17.8778,77.1686,14">Basavakalyan</option>
+                                    <option value="18.2667,77.4167,14">Bhalki</option>
+                                    <option value="18.1333,77.3000,14">Aurad</option>
+                                    <option value="17.9167,77.2333,14">Chitaguppa</option>
+                                </optgroup>
+                                <optgroup label="Major Cities">
+                                    <option value="12.9716,77.5946,12">Bangalore</option>
+                                    <option value="17.3850,78.4867,12">Hyderabad</option>
+                                    <option value="19.0760,72.8777,12">Mumbai</option>
+                                    <option value="28.6139,77.2090,12">Delhi</option>
+                                    <option value="22.5726,88.3639,12">Kolkata</option>
+                                    <option value="13.0827,80.2707,12">Chennai</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="map"></div>
+                <div class="map-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-minus"></i></button>
+                    <button id="reset-map" title="Reset Map"><i class="fas fa-home"></i></button>
+                    <div class="drawing-tools">
+                        <button id="draw-area" title="Draw Polygon"><i class="fas fa-draw-polygon"></i></button>
+                        <button id="draw-rectangle" title="Draw Rectangle"><i class="fas fa-square"></i></button>
+                        <button id="draw-circle" title="Draw Circle"><i class="fas fa-circle"></i></button>
+                        <button id="draw-marker" title="Add Marker"><i class="fas fa-map-marker-alt"></i></button>
+                        <button id="delete-drawings" title="Delete All Drawings"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <button id="focus-area" title="Focus on Drawn Area"><i class="fas fa-search"></i></button>
+                    <button id="toggle-layers" title="Toggle Layers"><i class="fas fa-layer-group"></i></button>
+                </div>
+                <div class="map-info-panel">
+                    <div id="coordinates">Coordinates: ---, ---</div>
+                    <div id="area-size">Area: --- sq.m</div>
+                </div>
+                <div class="map-tutorial" id="map-tutorial">
+                    <div class="tutorial-content">
+                        <h3><i class="fas fa-info-circle"></i> Quick Guide</h3>
+                        <p>Click the <i class="fas fa-draw-polygon"></i> button to start drawing an area on the map.</p>
+                        <p>Use <i class="fas fa-trash-alt"></i> to delete all drawings.</p>
+                        <button id="close-tutorial" title="Close Tutorial"><i class="fas fa-times"></i></button>
+                        <button id="hide-tutorial-permanently" title="Don't show again"><i class="fas fa-eye-slash"></i> Don't show again</button>
+                    </div>
+                </div>
+                <div id="layers-panel" class="layers-panel">
+                    <div class="layers-header">
+                        <h3>Map Layers</h3>
+                        <button id="close-layers" title="Close Layers Panel"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="layers-content">
+                        <div class="layer-item">
+                            <input type="checkbox" id="layer-buildings" class="layer-toggle">
+                            <label for="layer-buildings">Buildings</label>
+                        </div>
+                        <div class="layer-item">
+                            <input type="checkbox" id="layer-roads" class="layer-toggle">
+                            <label for="layer-roads">Roads</label>
+                        </div>
+                        <div class="layer-item">
+                            <input type="checkbox" id="layer-water" class="layer-toggle">
+                            <label for="layer-water">Water Bodies</label>
+                        </div>
+                        <div class="layer-item">
+                            <input type="checkbox" id="layer-terrain" class="layer-toggle">
+                            <label for="layer-terrain">Terrain</label>
+                        </div>
+                        <div class="layer-item">
+                            <input type="checkbox" id="layer-boundaries" class="layer-toggle">
+                            <label for="layer-boundaries">Administrative Boundaries</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chatbot Section -->
+            <section id="chatbot-section">
+                <div class="chatbot-header">
+                    <h2><i class="fas fa-robot"></i> AI Planning Assistant</h2>
+                    <button id="toggle-chatbot" title="Toggle chatbot visibility"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div id="chatbot-container">
+                    <div id="chat-window">
+                        <div id="chat-messages">
+                            <div class="message bot">
+                                Hello! I'm your AI planning assistant. I can help you understand land regulations, optimal usage, and planning considerations. Try drawing an area on the map or ask me a question.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <textarea id="chat-input" placeholder="Ask about land planning, regulations, or surveying..." rows="1" maxlength="500"></textarea>
+                        <div class="input-actions">
+                            <div class="char-counter"><span id="char-count">0</span>/500</div>
+                            <button id="send-message" title="Send message"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Feedback Form Section -->
+        <section id="feedback-section" class="standalone-section">
+            <div class="section-header">
+                <h2><i class="fas fa-comment-alt"></i> Share Your Feedback</h2>
+            </div>
+            <div class="feedback-container">
+                <form id="feedback-form" action="mailto:info.zaheerjk@gmail.com" method="POST" enctype="text/plain">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="feedback-name"><i class="fas fa-user"></i> Name</label>
+                            <input type="text" id="feedback-name" name="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback-email"><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="feedback-email" name="email" placeholder="Your email address" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="feedback-phone"><i class="fas fa-phone"></i> Contact Number</label>
+                            <input type="tel" id="feedback-phone" name="phone" placeholder="Your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback-subject"><i class="fas fa-tag"></i> Subject</label>
+                            <input type="text" id="feedback-subject" name="subject" placeholder="Feedback topic" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback-message"><i class="fas fa-comment"></i> Description</label>
+                        <textarea id="feedback-message" name="message" rows="4" placeholder="Please share your thoughts, suggestions or issues..." required></textarea>
+                    </div>
+                    <div class="form-group rating-group">
+                        <label><i class="fas fa-star"></i> Rate Your Experience</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Excellent"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Fair"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Poor"></label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="reset" id="reset-feedback"><i class="fas fa-undo"></i> Reset</button>
+                        <button type="submit" id="submit-feedback"><i class="fas fa-paper-plane"></i> Submit Feedback</button>
+                    </div>
+                </form>
+                <div id="feedback-success" class="feedback-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Thank You for Your Feedback!</h3>
+                    <p>Your input helps us improve our services.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                    <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+                <p>&copy; 2025 Land Surveying Project. All rights reserved.</p>
+                
+                <!-- Owner Credit -->
+                <div class="owner-credit">
+                    <p>Developed by <strong>Zaheer JK</strong></p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/zaheerjk/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" width="20" height="20" alt="LinkedIn" />
+                        </a>
+                        <a href="mailto:info.zaheerjk@gmail.com" title="Email">
+                            <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/gmail/default.svg" width="20" height="20" alt="Email" />
+                        </a>
+                        <a href="https://instagram.com/md_zaheer_jk" target="_blank" rel="noopener noreferrer" title="Instagram">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" width="20" height="20" alt="Instagram" />
+                        </a>
+                        <a href="https://twitter.com/zaheer_jk" target="_blank" rel="noopener noreferrer" title="Twitter">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" width="20" height="20" alt="Twitter" />
+                        </a>
+                        <a href="https://wa.me/918762194761" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+                            <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/whatsapp/default.svg" width="20" height="20" alt="WhatsApp" />
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61566826091099&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" title="Facebook">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" width="20" height="20" alt="Facebook" />
+                        </a>
+                        <a href="https://t.me/zaheerjk" target="_blank" rel="noopener noreferrer" title="Telegram">
+                            <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/telegram/default.svg" width="20" height="20" alt="Telegram" />
+                        </a>
+                        <a href="https://www.leetcode.com/wdfrt8wrks" target="_blank" rel="noopener noreferrer" title="LeetCode">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" width="20" height="20" alt="LeetCode" />
+                        </a>
+                        <a href="https://www.hackerrank.com/info_zaheerjk" target="_blank" rel="noopener noreferrer" title="HackerRank">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" width="20" height="20" alt="HackerRank" />
+                        </a>
+                        <a href="https://medium.com/@info.zaheerjk" target="_blank" rel="noopener noreferrer" title="Medium">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/medium.svg" width="20" height="20" alt="Medium" />
+                        </a>
+                        <a href="https://www.kaggle.com/zaheerjk" target="_blank" rel="noopener noreferrer" title="Kaggle">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg" width="20" height="20" alt="Kaggle" />
+                        </a>
+                        <a href="https://stackoverflow.com/users/28573007/zaheer-jk" target="_blank" rel="noopener noreferrer" title="Stack Overflow">
+                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" width="20" height="20" alt="Stack Overflow" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript Files -->
+    <!-- Mapbox JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/config.js"></script>
+    <script src="js/leaflet-geometryutil.js"></script>
+    <script src="js/leaflet-map.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/darkmode.js"></script>
+</body>
+</html>
