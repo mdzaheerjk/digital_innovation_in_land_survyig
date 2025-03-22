@@ -1,6 +1,6 @@
 # Land Surveying with Interactive Maps & AI Assistant
 
-Overview
+## Overview
 
 This project integrates interactive maps with an AI-powered assistant to enhance land surveying and selection. It provides four dynamic maps for visualization and analysis, helping users make informed decisions.
 
@@ -35,7 +35,9 @@ Backend (Optional): Node.js/Python for advanced AI processing
  ├── 📁 js/ (Interactive scripts)
  │   ├── chatbot.js (AI assistant logic)
  │   ├── map.js (Interactive maps)
- │   ├── leaflet-map.js (Leaflet integration)
+ │   ├── leaflet-map.js (Leaflet 
+integration)
+
  │   ├── darkmode.js (Theme control)
  ├── 📄 index.html (Main interface)
  ├── 📄 README.md (Project documentation)
