@@ -4,7 +4,7 @@ Overview
 
 This project integrates interactive maps with an AI-powered assistant to enhance land surveying and selection. It provides four dynamic maps for visualization and analysis, helping users make informed decisions.
 
-Features
+## Features
 
 🌍 Four Interactive Maps (Leaflet-based)
 
@@ -17,7 +17,7 @@ Features
 ☁️ Cloud-based Data Storage
 
 
-Tech Stack
+## Tech Stack
 
 Frontend: HTML, CSS, JavaScript
 
@@ -28,7 +28,7 @@ AI Assistant: JavaScript-based chatbot
 Backend (Optional): Node.js/Python for advanced AI processing
 
 
-Project Structure
+## Project Structure
 
 📂 Land-Surveying-AI
  ├── 📁 css/ (Styling files)
@@ -41,7 +41,7 @@ Project Structure
  ├── 📄 README.md (Project documentation)
  ├── 📄 config.js (Configuration settings)
 
-Installation
+## Installation
 
 1. Clone the repository
 
@@ -60,7 +60,7 @@ http://localhost:8080/index.html
 
 
 
-Usage
+## Usage
 
 Navigate between the four interactive maps
 
@@ -75,7 +75,7 @@ Future Enhancements
 ✅ AR-based real-world overlays
 ✅ Blockchain integration for land records
 
-Contributors
+# Contributors
 
 Mohammad zaheeruddin 
 
@@ -85,9 +85,9 @@ Aarti
 
 Shweta guttedar
 
-License
+# License
 
-📜 MIT License
+## 📜 MIT License
 
 Let me know if you need modifications! 🚀
 
