@@ -37,7 +37,6 @@ Backend (Optional): Node.js/Python for advanced AI processing
  │   ├── map.js (Interactive maps)
  │   ├── leaflet-map.js (Leaflet 
 integration)
-
  │   ├── darkmode.js (Theme control)
  ├── 📄 index.html (Main interface)
  ├── 📄 README.md (Project documentation)
@@ -87,9 +86,9 @@ Aarti
 
 Shweta guttedar
 
-# License
+## License
 
-## 📜 MIT License
+ 📜 MIT License
 
 Let me know if you need modifications! 🚀
 
