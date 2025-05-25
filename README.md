@@ -1,94 +1,98 @@
 # Land Surveying with Interactive Maps & AI Assistant
 
-## Overview
+## 🔍 Project Summary
 
-This project integrates interactive maps with an AI-powered assistant to enhance land surveying and selection. It provides four dynamic maps for visualization and analysis, helping users make informed decisions.
+| Item           | Description                                                                  |
+|----------------|------------------------------------------------------------------------------|
+| 🎯 Project Name | **Land Surveying with Interactive Maps & AI Assistant**                      |
+| 🛠️ Goal         | Enhance land surveying using maps + AI for smarter land selection            |
+| 👥 Team Members | Mohammad Zaheeruddin, Vansh Jadhav, Aarti, Shweta Guttedar                   |
+| 🔑 License      | MIT License                                                                  |
 
-## Features
+---
 
-🌍 Four Interactive Maps (Leaflet-based)
+## 🌟 Key Features
 
-🤖 AI Assistant for land recommendations
+| Feature                      | Description                                                                 |
+|------------------------------|-----------------------------------------------------------------------------|
+| 🗺️ Four Interactive Maps       | Built using **Leaflet.js** and **GeoJSON** for dynamic land visualization  |
+| 🤖 AI Assistant               | JavaScript-based bot suggests best land options                             |
+| 📍 Geospatial Data            | Real-time land data parsing and processing                                  |
+| 🎛️ Map Customization          | Layer controls, zooming, and dark mode                                      |
+| ☁️ Cloud Integration (Optional) | Store survey data securely for future analysis                           |
 
-📍 Geospatial Data Processing
+---
 
-🗺️ Map Layer Controls & Customization
+## 🧰 Tech Stack
 
-☁️ Cloud-based Data Storage
+| Layer     | Tech Used                     |
+|-----------|-------------------------------|
+| Frontend  | HTML, CSS, JavaScript         |
+| Maps      | Leaflet.js, GeoJSON           |
+| AI Bot    | Vanilla JS chatbot            |
+| Backend   | Node.js or Python (optional)  |
 
+---
 
-## Tech Stack
+## 📁 Folder Structure
 
-Frontend: HTML, CSS, JavaScript
+```plaintext
+Land-Surveying-AI/
+├── css/                  # Styling files
+├── js/                   # JavaScript logic
+│   ├── chatbot.js        # AI assistant logic
+│   ├── map.js            # Map interactivity
+│   ├── leaflet-map.js    # Leaflet map rendering
+│   ├── darkmode.js       # Theme switching
+├── index.html            # Main UI
+├── README.md             # Documentation
+├── config.js             # Configurations
+# Land Surveying with Interactive Maps & AI Assistant
 
-Maps: Leaflet.js, GeoJSON
+## 🔍 Project Summary
 
-AI Assistant: JavaScript-based chatbot
+| Item           | Description                                                                  |
+|----------------|------------------------------------------------------------------------------|
+| 🎯 Project Name | **Land Surveying with Interactive Maps & AI Assistant**                      |
+| 🛠️ Goal         | Enhance land surveying using maps + AI for smarter land selection            |
+| 👥 Team Members | Mohammad Zaheeruddin, Vansh Jadhav, Aarti, Shweta Guttedar                   |
+| 🔑 License      | MIT License                                                                  |
 
-Backend (Optional): Node.js/Python for advanced AI processing
+---
 
+## 🌟 Key Features
 
-## Project Structure
+| Feature                      | Description                                                                 |
+|------------------------------|-----------------------------------------------------------------------------|
+| 🗺️ Four Interactive Maps       | Built using **Leaflet.js** and **GeoJSON** for dynamic land visualization  |
+| 🤖 AI Assistant               | JavaScript-based bot suggests best land options                             |
+| 📍 Geospatial Data            | Real-time land data parsing and processing                                  |
+| 🎛️ Map Customization          | Layer controls, zooming, and dark mode                                      |
+| ☁️ Cloud Integration (Optional) | Store survey data securely for future analysis                           |
 
-📂 Land-Surveying-AI
- ├── 📁 css/ (Styling files)
- ├── 📁 js/ (Interactive scripts)
- │   ├── chatbot.js (AI assistant logic)
- │   ├── map.js (Interactive maps)
- │   ├── leaflet-map.js (Leaflet 
-integration)
- │   ├── darkmode.js (Theme control)
- ├── 📄 index.html (Main interface)
- ├── 📄 README.md (Project documentation)
- ├── 📄 config.js (Configuration settings)
+---
 
-## Installation
+## 🧰 Tech Stack
 
-1. Clone the repository
+| Layer     | Tech Used                     |
+|-----------|-------------------------------|
+| Frontend  | HTML, CSS, JavaScript         |
+| Maps      | Leaflet.js, GeoJSON           |
+| AI Bot    | Vanilla JS chatbot            |
+| Backend   | Node.js or Python (optional)  |
 
-git clone https://github.com/your-repo/Land-Surveying-AI.git
-cd Land-Surveying-AI
+---
 
+## 📁 Folder Structure
 
-2. Run a local server (for better map performance)
-
-python -m http.server 8080
-
-
-3. Open in browser
-
-http://localhost:8080/index.html
-
-
-
-## Usage
-
-Navigate between the four interactive maps
-
-Click on land plots to get AI-based suggestions
-
-Enable dark mode for better visibility
-
-
-Future Enhancements
-
-✅ AI-driven land value prediction
-✅ AR-based real-world overlays
-✅ Blockchain integration for land records
-
-# Contributors
-
-Mohammad zaheeruddin 
-
-Vansh jadhav 
-
-Aarti
-
-Shweta guttedar
-
-## License
-
- 📜 MIT License
-
-Let me know if you need modifications! 🚀
-
+```plaintext
+Land-Surveying-AI/
+├── css/                  # Styling files
+├── js/                   # JavaScript logic
+│   ├── chatbot.js        # AI assistant logic
+│   ├── map.js            # Map interactivity
+│   ├── leaflet-map.js    # Leaflet map rendering
+│   ├── darkmode.js       # Theme switching
+├── index.html            # Main UI
+├── README.md             # Documentation
+├── config.js             # Configurations
