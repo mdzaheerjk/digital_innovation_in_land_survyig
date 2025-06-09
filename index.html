@@ -31,7 +31,6 @@
                     <strong>Tensor Titans</strong>
                 </div>
             </div>
-            <button id="dark-mode-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
         </header>
 
         <div class="main-content">
@@ -41,10 +40,26 @@
                     <h2>Interactive Map</h2>
                     <div class="map-controls-container">
                         <div class="map-mode-toggle">
-                            <button id="satellite-view" class="map-mode-btn active" title="Satellite View"><i class="fas fa-satellite"></i> Satellite</button>
-                            <button id="street-view" class="map-mode-btn" title="Street View"><i class="fas fa-road"></i> Street</button>
-                            <button id="hybrid-view" class="map-mode-btn" title="Hybrid View"><i class="fas fa-globe"></i> Hybrid</button>
-                            <button id="colorful-view" class="map-mode-btn" title="Colorful View"><i class="fas fa-palette"></i> Colorful</button>
+                            <div class="control-group">
+                                <button class="control-btn" id="satellite-view" title="Satellite View">
+                                    <i class="fas fa-satellite"></i>
+                                </button>
+                                <button class="control-btn" id="street-view" title="Street View">
+                                    <i class="fas fa-road"></i>
+                                </button>
+                                <button class="control-btn" id="hybrid-view" title="Hybrid View">
+                                    <i class="fas fa-globe"></i>
+                                </button>
+                                <button class="control-btn" id="colorful-view" title="Colorful View">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+                                <button class="control-btn" id="topo-view" title="Topographic View">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </button>
+                                <button class="control-btn" id="transport-view" title="Transportation View">
+                                    <i class="fas fa-truck"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="city-selector">
                             <select id="city-select" title="Select City">
@@ -230,54 +245,53 @@
         <!-- Footer -->
         <footer>
             <div class="footer-content">
-                <div class="footer-links">
-                    <a href="#"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-                    <a href="#"><i class="fas fa-envelope"></i> Contact</a>
-                </div>
-                <p>&copy; 2025 Land Surveying Project. All rights reserved.</p>
-                
-                <!-- Owner Credit -->
-                <div class="owner-credit">
-                    <p>Developed by <strong>Zaheer JK</strong></p>
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/zaheerjk/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" width="20" height="20" alt="LinkedIn" />
-                        </a>
-                        <a href="mailto:info.zaheerjk@gmail.com" title="Email">
-                            <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/gmail/default.svg" width="20" height="20" alt="Email" />
-                        </a>
-                        <a href="https://instagram.com/md_zaheer_jk" target="_blank" rel="noopener noreferrer" title="Instagram">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" width="20" height="20" alt="Instagram" />
-                        </a>
-                        <a href="https://twitter.com/zaheer_jk" target="_blank" rel="noopener noreferrer" title="Twitter">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" width="20" height="20" alt="Twitter" />
-                        </a>
-                        <a href="https://wa.me/918762194761" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-                            <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/whatsapp/default.svg" width="20" height="20" alt="WhatsApp" />
-                        </a>
-                        <a href="https://www.facebook.com/profile.php?id=61566826091099&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" title="Facebook">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" width="20" height="20" alt="Facebook" />
-                        </a>
-                        <a href="https://t.me/zaheerjk" target="_blank" rel="noopener noreferrer" title="Telegram">
-                            <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/telegram/default.svg" width="20" height="20" alt="Telegram" />
-                        </a>
-                        <a href="https://www.leetcode.com/wdfrt8wrks" target="_blank" rel="noopener noreferrer" title="LeetCode">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" width="20" height="20" alt="LeetCode" />
-                        </a>
-                        <a href="https://www.hackerrank.com/info_zaheerjk" target="_blank" rel="noopener noreferrer" title="HackerRank">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" width="20" height="20" alt="HackerRank" />
-                        </a>
-                        <a href="https://medium.com/@info.zaheerjk" target="_blank" rel="noopener noreferrer" title="Medium">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/medium.svg" width="20" height="20" alt="Medium" />
-                        </a>
-                        <a href="https://www.kaggle.com/zaheerjk" target="_blank" rel="noopener noreferrer" title="Kaggle">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg" width="20" height="20" alt="Kaggle" />
-                        </a>
-                        <a href="https://stackoverflow.com/users/28573007/zaheer-jk" target="_blank" rel="noopener noreferrer" title="Stack Overflow">
-                            <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" width="20" height="20" alt="Stack Overflow" />
-                        </a>
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <div class="footer-links">
+                        <a href="#"><i class="fas fa-info-circle"></i>About Us</a>
+                        <a href="#"><i class="fas fa-history"></i>Our Story</a>
+                        <a href="#"><i class="fas fa-users"></i>Team</a>
+                        <a href="#"><i class="fas fa-bullseye"></i>Mission</a>
                     </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                <div class="footer-links">
+                        <a href="#"><i class="fas fa-shield-alt"></i>Privacy Policy</a>
+                        <a href="#"><i class="fas fa-file-contract"></i>Terms of Service</a>
+                        <a href="#"><i class="fas fa-question-circle"></i>FAQ</a>
+                        <a href="#"><i class="fas fa-book"></i>Documentation</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <div class="footer-links">
+                        <a href="mailto:contact@landsurveying.com"><i class="fas fa-envelope"></i>contact@landsurveying.com</a>
+                        <a href="tel:+1234567890"><i class="fas fa-phone"></i>+1 (234) 567-890</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i>123 Survey Street, City</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2025 Land Surveying Project. All rights reserved.
+                </div>
+                <div class="developer-info">
+                    Developed by <a href="https://github.com/zaheerjk" target="_blank">Zaheer JK</a>
+                    <span>|</span>
+                    <a href="https://linkedin.com/in/zaheerjk" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/zaheerjk" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/zaheerjk" target="_blank"><i class="fab fa-github"></i></a>
                 </div>
             </div>
         </footer>

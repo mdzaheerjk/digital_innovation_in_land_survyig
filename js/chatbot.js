@@ -621,9 +621,9 @@ function getSuggestionForArea(area, landAnalysis) {
     // Convert area to square feet for Indian real estate calculations
     const squareFeet = Math.round(area * 10.764);
     
-    // Adjusted price per square foot for more realistic cost estimates
-    const pricePerSquareFootDeveloped = 3000; // Reduced from 4000
-    const pricePerSquareFootUndeveloped = 800; // Reduced from 1200
+    // Adjusted price per square foot for more realistic cost estimates (reduced by 50%)
+    const pricePerSquareFootDeveloped = 1500; // Reduced from 3000
+    const pricePerSquareFootUndeveloped = 400; // Reduced from 800
 
     // Calculate current price per acre with adjusted values
     const pricePerAcreDeveloped = pricePerSquareFootDeveloped * 43560; // 1 acre = 43,560 sq.ft
@@ -637,90 +637,58 @@ function getSuggestionForArea(area, landAnalysis) {
     const futureValueDeveloped = pricePerAcreDeveloped * Math.pow(1 + growthRateDeveloped, 10);
     const futureValueUndeveloped = pricePerAcreUndeveloped * Math.pow(1 + growthRateUndeveloped, 10);
 
+    // Get highway information
+    const highwayInfo = detectNearestHighway(drawnItems.getLayers()[0]);
+
     // Create a more detailed response based on land analysis
     let message = `I've analyzed the selected area of **${sizeInAcres} acres** (${sizeInHectares} hectares or approximately ${squareFeet.toLocaleString()} sq.ft).`;
     
-    if (landAnalysis.isDeveloped) {
-        // Recommendations for developed areas
-        message += `\n\n📍 **Land Analysis**: This appears to be a **developed area** with relatively high population density.`;
+    if (landAnalysis.isWater) {
+        message += `\n\n🌊 **Water Body Analysis**: This area is located over ${landAnalysis.waterType === 'sea' ? 'sea' : 'a water body'}.`;
         
         message += `\n\n**Key Observations**:
-- 🏙️ This is a crowded area with existing development
-- 🚦 The area has established infrastructure
-- 🏢 Limited space for new large-scale construction
-- 📱 Good connectivity and network coverage likely exists`;
+- 💧 ${landAnalysis.depth === 'deep' ? 'Deep water' : 'Shallow water'} conditions
+- 🏗️ ${landAnalysis.hasExistingStructures ? 'Existing structures present' : 'No existing structures'}
+- 🌍 ${landAnalysis.environmentalSensitivity === 'high' ? 'High environmental sensitivity' : 'Moderate environmental sensitivity'}`;
         
         message += `\n\n**Development Recommendations**:`;
         
-        // Buildings recommendations for developed area
+        // Water-specific building options
         message += `\n\n🏗️ **Building Options**:
-- **Mixed-use commercial buildings**: 4-6 floors with retail on ground floor
-- **Residential apartments**: Mid-rise (8-10 floors) with amenities
-- **Office spaces** for services/IT companies
-- **Public facilities**: Community centers, healthcare facilities`;
+- **Offshore platforms**: For oil/gas exploration or renewable energy
+- **Artificial islands**: For mixed-use development
+- **Floating structures**: Hotels, restaurants, or residential units
+- **Marine research facilities**: For scientific studies
+- **Port facilities**: For maritime activities
+- **Aquaculture facilities**: For sustainable seafood production`;
 
-        // Infrastructure recommendations for developed area
-        message += `\n\n🛣️ **Infrastructure Needs**:
-- **Road improvements**: Widening existing roads, adding service lanes
-- **Parking solutions**: Multi-level parking structures recommended
-- **Utility upgrades**: Water, electricity, sewage capacity enhancement
-- **Public transport hubs**: Local bus stops, ride-sharing pickup points`;
+        // Water-specific infrastructure needs
+        message += `\n\n🛠️ **Infrastructure Needs**:
+- **Marine transportation**: Ferry services, water taxis
+- **Underwater utilities**: Power cables, water pipelines
+- **Coastal protection**: Breakwaters, sea walls
+- **Environmental monitoring**: Water quality sensors
+- **Emergency response**: Marine rescue facilities
+- **Waste management**: Specialized water treatment systems`;
 
-        // Cost estimates for developed area (in rupees) with adjusted values
-        const landValue = Math.round(squareFeet * pricePerSquareFootDeveloped); // Adjusted land value
-        const infrastructureCost = Math.round(squareFeet * 600); // Reduced infrastructure cost
-        const buildingCost = Math.round(squareFeet * 2000); // Reduced building cost
-        const totalEstimate = landValue + infrastructureCost + buildingCost;
-        
-        message += `\n\n💰 **Estimated Costs (₹)**:
-- **Land value**: ₹${landValue.toLocaleString()}
-- **Infrastructure development**: ₹${infrastructureCost.toLocaleString()}
-- **Building construction**: ₹${buildingCost.toLocaleString()} (varies by type)
-- **Total estimated investment**: ₹${totalEstimate.toLocaleString()}`;
-        
-        // Add development timeline
-        message += `\n\n⏱️ **Development Timeline**:
-- **Planning & approvals**: 6-8 months
-- **Infrastructure upgrades**: 4-6 months
-- **Construction phase**: 18-24 months
-- **Total project timeline**: 2.5-3 years`;
+        // Cost estimates for water development (in rupees) - reduced by 50%
+        const baseCost = squareFeet * 2500; // Reduced from 5000
+        const environmentalMitigation = squareFeet * 1000; // Reduced from 2000
+        const infrastructureCost = squareFeet * 1500; // Reduced from 3000
+        const totalEstimate = baseCost + environmentalMitigation + infrastructureCost;
 
-        // Add resource requirements
-        message += `\n\n🔨 **Resource Requirements**:
-- **Labor force**: 150-200 workers during peak construction
-- **Construction materials**: ~${Math.round(squareFeet * 0.1).toLocaleString()} tons of cement, ${Math.round(squareFeet * 0.05).toLocaleString()} tons of steel
-- **Water requirement**: ~${Math.round(squareFeet * 0.02).toLocaleString()} kiloliters
-- **Power requirement**: ~${Math.round(squareFeet * 0.05).toLocaleString()} kW connected load`;
+        message += `\n\n💰 **Estimated Development Costs**:
+- Base construction: ₹${baseCost.toLocaleString()}
+- Environmental mitigation: ₹${environmentalMitigation.toLocaleString()}
+- Specialized infrastructure: ₹${infrastructureCost.toLocaleString()}
+- **Total estimate**: ₹${totalEstimate.toLocaleString()}`;
 
-        // Add population impact
-        const peopleCapacity = Math.round(squareFeet * 0.01);
-        const jobsCreated = Math.round(squareFeet * 0.005);
-        
-        message += `\n\n👥 **Population Impact**:
-- **Direct beneficiaries**: ~${peopleCapacity.toLocaleString()} people can occupy/use the space
-- **Jobs created**: ~${jobsCreated.toLocaleString()} permanent positions
-- **Construction jobs**: ~200 temporary positions
-- **Indirect beneficiaries**: ~${Math.round(peopleCapacity * 2.5).toLocaleString()} people in surrounding areas`;
-
-        // Add sustainability features
-        message += `\n\n♻️ **Sustainability Recommendations**:
-- **Solar installation**: ${Math.round(squareFeet * 0.1).toLocaleString()} sq.ft rooftop solar (${Math.round(squareFeet * 0.01).toLocaleString()} kW capacity)
-- **Energy savings**: ~${Math.round(squareFeet * 0.015).toLocaleString()} kWh per day
-- **Pollution reduction**: ${Math.round(squareFeet * 0.002).toLocaleString()} tons CO₂ offset annually
-- **Green building features**: Rainwater harvesting, energy-efficient lighting, waste management systems`;
-        
-        message += `\n\n**Note**: Costs will be higher in developed areas due to premium land rates and the need for demolition of existing structures.`;
-        
-        // Add price estimation and future projection
-        message += `\n\n💵 **Price Estimation for 1 Acre**:
-- **Current Price**: ₹${pricePerAcreDeveloped.toLocaleString()}
-- **Projected Price in 10 Years**: ₹${futureValueDeveloped.toLocaleString()}`;
-        
-        // Add recommendations for public and commercial facilities
-        message += `\n\n🏢 **Public and Commercial Facilities**:
-- **Government Offices**: Administrative buildings, public service centers
-- **Educational Institutions**: Schools, colleges, vocational training centers
-- **Commercial Spaces**: Shopping malls, retail marts, entertainment complexes`;
+        message += `\n\n⚠️ **Important Considerations**:
+- Environmental impact assessment required
+- Special permits needed for water development
+- Regular maintenance of marine structures
+- Climate change and sea level rise considerations
+- Marine ecosystem protection measures`;
         
     } else {
         // Recommendations for undeveloped/empty land
@@ -728,7 +696,7 @@ function getSuggestionForArea(area, landAnalysis) {
         
         message += `\n\n**Key Observations**:
 - 🌾 Potential for agricultural or industrial development
-- 🛣️ Limited existing roads - new infrastructure needed
+- 🛣️ ${highwayInfo ? `Located near ${highwayInfo.type} (${highwayInfo.distance}m to the ${highwayInfo.direction})` : 'Limited existing roads - new infrastructure needed'}
 - 🏕️ Not crowded - excellent for new development projects
 - 📡 Limited internet connectivity and utilities`;
         
@@ -743,15 +711,15 @@ function getSuggestionForArea(area, landAnalysis) {
 
         // Infrastructure recommendations for undeveloped land
         message += `\n\n🛣️ **Infrastructure Needs**:
-- **New road network**: Primary 2-lane roads with expansion capability
+- **Road network**: ${highwayInfo ? `Connection to nearby ${highwayInfo.type}` : 'New primary 2-lane roads with expansion capability'}
 - **Water management systems**: Borewells, water tanks, drainage
 - **Electricity infrastructure**: Substations and distribution network
 - **Connectivity**: Cell towers, fiber optic networks for internet`;
 
-        // Cost estimates for undeveloped land (in rupees) with adjusted values
+        // Cost estimates for undeveloped land (in rupees) with adjusted values - reduced by 50%
         const landValue = Math.round(squareFeet * pricePerSquareFootUndeveloped); // Adjusted land value
-        const infrastructureCost = Math.round(squareFeet * 1200); // Reduced infrastructure cost
-        const buildingCost = Math.round(squareFeet * 1500); // Reduced building cost
+        const infrastructureCost = Math.round(squareFeet * 600); // Reduced from 1200
+        const buildingCost = Math.round(squareFeet * 750); // Reduced from 1500
         const totalEstimate = landValue + infrastructureCost + buildingCost;
         
         message += `\n\n💰 **Estimated Costs (₹)**:
@@ -894,11 +862,25 @@ This solar farm could power the entire development and potentially generate surp
 
 // Add new function to analyze land type
 function analyzeLandType(drawingType) {
-    // This would be connected to actual data in a real implementation
-    // For now, we'll simulate with a toggle or based on drawing type
+    // Check if water layer is active and if the area is over water
+    const waterLayerActive = document.getElementById('layer-water')?.checked;
+    const isOverWater = waterLayerActive && Math.random() > 0.3; // Simulating water detection
+    
+    if (isOverWater) {
+        return {
+            isWater: true,
+            waterType: Math.random() > 0.5 ? 'sea' : 'lake',
+            depth: Math.random() > 0.7 ? 'deep' : 'shallow',
+            hasExistingStructures: Math.random() > 0.8,
+            environmentalSensitivity: Math.random() > 0.6 ? 'high' : 'moderate'
+        };
+    }
+    
+    // Regular land analysis
     const isResidentialArea = document.getElementById('layer-buildings')?.checked || Math.random() > 0.5;
     
     return {
+        isWater: false,
         isDeveloped: isResidentialArea,
         populationDensity: isResidentialArea ? 'high' : 'low',
         hasRoads: isResidentialArea ? true : Math.random() > 0.7,

@@ -103,11 +103,40 @@ function initMap() {
         maxZoom: 20
     });
     
-    // Create colorful layer - using a more reliable colorful map source
+    // Create colorful layer
     colorfulLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 20
+    });
+
+    // Add new map layers
+    terrainLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        minZoom: 0,
+        maxZoom: 18,
+        ext: 'png',
+        opacity: 0.6
+    });
+
+    // Add dark mode layer
+    darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    });
+
+    // Add topographic layer
+    topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+        maxZoom: 17
+    });
+
+    // Add transportation layer
+    transportLayer = L.tileLayer('https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=6170aad10dfd42a38d4d8c709a536f38', {
+        attribution: '© OpenStreetMap contributors, © Thunderforest',
+        maxZoom: 19
     });
 
     // Initialize additional layers
@@ -147,16 +176,6 @@ function initAdditionalLayers() {
         maxZoom: 16,
         ext: 'jpg',
         opacity: 0.5
-    });
-
-    // Terrain layer (from Stamen)
-    terrainLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: 'abcd',
-        minZoom: 0,
-        maxZoom: 18,
-        ext: 'png',
-        opacity: 0.6
     });
 
     // Administrative boundaries layer
@@ -235,9 +254,25 @@ function initDrawingTools() {
         // Store area globally for access by other scripts
         window.drawnArea = area;
         
-        // Notify chatbot
+        // Detect if the area is over water
+        const waterInfo = detectWaterBody(layer);
+        if (waterInfo) {
+            // Add water-specific styling
+            layer.setStyle({
+                color: '#2563eb',
+                fillColor: '#3b82f6',
+                fillOpacity: 0.3,
+                weight: 2,
+                dashArray: '5, 5'
+            });
+            
+            // Add water info to the layer
+            layer.waterInfo = waterInfo;
+        }
+        
+        // Notify chatbot with water information if applicable
         if (typeof updateChatbotWithAreaInfo === 'function') {
-            updateChatbotWithAreaInfo(area);
+            updateChatbotWithAreaInfo(area, waterInfo);
         }
         
         // Reset active drawing tool after drawing is complete
@@ -257,9 +292,25 @@ function initDrawingTools() {
             // Store area globally for access by other scripts
             window.drawnArea = area;
             
-            // Notify chatbot
+            // Detect if the area is over water
+            const waterInfo = detectWaterBody(layer);
+            if (waterInfo) {
+                // Add water-specific styling
+                layer.setStyle({
+                    color: '#2563eb',
+                    fillColor: '#3b82f6',
+                    fillOpacity: 0.3,
+                    weight: 2,
+                    dashArray: '5, 5'
+                });
+                
+                // Add water info to the layer
+                layer.waterInfo = waterInfo;
+            }
+            
+            // Notify chatbot with water information if applicable
             if (typeof updateChatbotWithAreaInfo === 'function') {
-                updateChatbotWithAreaInfo(area);
+                updateChatbotWithAreaInfo(area, waterInfo);
             }
         });
     });
@@ -315,25 +366,12 @@ function updateAreaDisplay(area) {
 // Set up event listeners for map controls
 function setupEventListeners() {
     // Map mode buttons
-    document.getElementById('satellite-view').addEventListener('click', function() {
-        setMapMode('satellite');
-        updateMapModeButtons('satellite-view');
-    });
-
-    document.getElementById('street-view').addEventListener('click', function() {
-        setMapMode('street');
-        updateMapModeButtons('street-view');
-    });
-
-    document.getElementById('hybrid-view').addEventListener('click', function() {
-        setMapMode('hybrid');
-        updateMapModeButtons('hybrid-view');
-    });
-    
-    document.getElementById('colorful-view').addEventListener('click', function() {
-        setMapMode('colorful');
-        updateMapModeButtons('colorful-view');
-    });
+    document.getElementById('satellite-view').addEventListener('click', () => setMapMode('satellite'));
+    document.getElementById('street-view').addEventListener('click', () => setMapMode('street'));
+    document.getElementById('hybrid-view').addEventListener('click', () => setMapMode('hybrid'));
+    document.getElementById('colorful-view').addEventListener('click', () => setMapMode('colorful'));
+    document.getElementById('topo-view').addEventListener('click', () => setMapMode('topo'));
+    document.getElementById('transport-view').addEventListener('click', () => setMapMode('transport'));
 
     // Zoom controls
     document.getElementById('zoom-in').addEventListener('click', function() {
@@ -582,6 +620,10 @@ function setMapMode(mode) {
     map.removeLayer(satelliteLayer);
     map.removeLayer(hybridLayer);
     map.removeLayer(colorfulLayer);
+    map.removeLayer(terrainLayer);
+    map.removeLayer(darkLayer);
+    map.removeLayer(topoLayer);
+    map.removeLayer(transportLayer);
 
     // Add selected base layer
     switch (mode) {
@@ -597,18 +639,38 @@ function setMapMode(mode) {
         case 'colorful':
             map.addLayer(colorfulLayer);
             break;
+        case 'topo':
+            map.addLayer(topoLayer);
+            break;
+        case 'transport':
+            map.addLayer(transportLayer);
+            break;
         default:
             map.addLayer(satelliteLayer);
     }
 }
 
 // Update map mode buttons
-function updateMapModeButtons(activeButtonId) {
-    const buttons = document.querySelectorAll('.map-mode-btn');
-    buttons.forEach(button => {
+function updateMapModeButtons(activeMode) {
+    const buttons = {
+        'satellite-view': 'satellite',
+        'street-view': 'street',
+        'hybrid-view': 'hybrid',
+        'colorful-view': 'colorful',
+        'topo-view': 'topo',
+        'transport-view': 'transport'
+    };
+
+    Object.entries(buttons).forEach(([buttonId, mode]) => {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            if (mode === activeMode) {
+                button.classList.add('active');
+            } else {
         button.classList.remove('active');
+            }
+        }
     });
-    document.getElementById(activeButtonId).classList.add('active');
 }
 
 // Show popup with location information
@@ -650,19 +712,91 @@ function showLocationPopup(lat, lng, locationName) {
         .openOn(map);
 }
 
-// Add new function to update chatbot with layer context
-function updateChatbotWithAreaContext() {
-    // Get current area if available
-    const drawnLayers = drawnItems.getLayers();
-    if (drawnLayers.length > 0) {
-        // For simplicity, we'll use the first drawn item
-        const layer = drawnLayers[0];
-        let area = calculateArea(layer);
+// Add water detection functionality
+function detectWaterBody(layer) {
+    if (!layer) return null;
+    
+    // Get the bounds of the drawn area
+    const bounds = layer.getBounds();
+    const center = bounds.getCenter();
+    
+    // Check if water layer is active
+    const waterLayerActive = document.getElementById('layer-water')?.checked;
+    
+    if (waterLayerActive) {
+        // Simulate water detection based on coordinates
+        // In a real implementation, this would use actual water body data
+        const isOverWater = Math.random() > 0.3; // Simulating water detection
         
-        // Update chatbot with the area information and current layers
-        if (typeof updateChatbotWithAreaInfo === 'function' && area > 0) {
-            updateChatbotWithAreaInfo(area);
+        if (isOverWater) {
+            return {
+                type: Math.random() > 0.5 ? 'sea' : 'lake',
+                depth: Math.random() > 0.7 ? 'deep' : 'shallow',
+                hasExistingStructures: Math.random() > 0.8,
+                environmentalSensitivity: Math.random() > 0.6 ? 'high' : 'moderate'
+            };
         }
+    }
+    
+    return null;
+}
+
+// Add function to detect nearest highway
+function detectNearestHighway(layer) {
+    if (!layer) return null;
+    
+    // Get the center point of the drawn area
+    const bounds = layer.getBounds();
+    const center = bounds.getCenter();
+    
+    // Check if roads layer is active
+    const roadsLayerActive = document.getElementById('layer-roads')?.checked;
+    
+    if (roadsLayerActive) {
+        // Simulate highway detection based on coordinates
+        // In a real implementation, this would use actual highway data
+        const hasNearbyHighway = Math.random() > 0.3; // Simulating highway detection
+        
+        if (hasNearbyHighway) {
+            // Simulate distance to highway (in meters)
+            const distance = Math.floor(Math.random() * 5000) + 500; // Between 500m and 5.5km
+            
+            return {
+                distance: distance,
+                type: Math.random() > 0.5 ? 'National Highway' : 'State Highway',
+                direction: ['North', 'South', 'East', 'West'][Math.floor(Math.random() * 4)],
+                accessType: Math.random() > 0.7 ? 'Direct Access' : 'Requires Connecting Road'
+            };
+        }
+    }
+    
+    return null;
+}
+
+// Update the updateChatbotWithAreaInfo function
+function updateChatbotWithAreaInfo(area, waterInfo) {
+    // Only add this message if not already present
+    const messages = document.getElementById('chat-messages');
+    if (!messages.innerHTML.includes('You have drawn an area')) {
+        let message = `I notice you have drawn an area of ${area} sq.m. `;
+        
+        // Get highway information
+        const highwayInfo = detectNearestHighway(drawnItems.getLayers()[0]);
+        
+        if (waterInfo) {
+            message += `This area appears to be over ${waterInfo.type === 'sea' ? 'sea' : 'a water body'}. `;
+            message += `Would you like information about development possibilities for this water area?`;
+        } else {
+            message += `Would you like some information about land regulations for this size of plot?`;
+            
+            // Add highway information if available
+            if (highwayInfo) {
+                message += `\n\nI've detected a ${highwayInfo.type} approximately ${highwayInfo.distance} meters to the ${highwayInfo.direction} of your selected area. `;
+                message += `This ${highwayInfo.accessType.toLowerCase()}.`;
+            }
+        }
+        
+        addMessage('bot', message);
     }
 }
 
