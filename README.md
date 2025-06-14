@@ -9,7 +9,7 @@ Land Surveying with Interactive Maps & AI Assistant is a smart geospatial tool c
 |----------------|------------------------------------------------------------------------------|
 | 🎯 Project Name | **Land Surveying with Interactive Maps & AI Assistant**                      |
 | 🛠️ Goal         | Enhance land surveying using maps + AI for smarter land selection            |
-| 👥 Team Members | Mohammad Zaheeruddin, Vansh Jadhav, Aarti, Shweta Guttedar                   |
+| 👥 Team Members | Mohammad Zaheeruddin, Shashank, Nandini, Sangmesh                 |
 | 🔑 License      | MIT License                                                                  |
 
 ---
